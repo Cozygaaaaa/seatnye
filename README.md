@@ -6,7 +6,7 @@ Aplikasi web sederhana berbasis Single Page Application (SPA) untuk input menu r
 - Konsep Single Page Application (SPA) dengan route hash: `#/menu`, `#/cart`, `#/queue` dan navigasi bawah (bottom nav).
 - Mode mobile (HP) dengan UI terpisah per layar: Daftar Menu, Pesanan Aktif (Keranjang), dan Antrian Kasir.
 - Daftar menu makanan/minuman lengkap dengan gambar, termasuk pilihan level untuk menu pedas tertentu.
-- Keranjang pesanan dengan kontrol jumlah (+/-) dan total otomatis.
+- Keranjang pesanan dengan kontrol jumlah (+/-), subtotal, pajak 10% otomatis, dan total otomatis.
 - Input nama pelanggan, nomor meja, dan metode pembayaran.
 - Tombol **Kirim ke Kasir** untuk membuat transaksi.
 - Riwayat antrian kasir tersimpan di `localStorage`.

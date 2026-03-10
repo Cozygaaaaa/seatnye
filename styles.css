@@ -168,7 +168,17 @@ input, select {
 }
 
 .queue-item-head { display: flex; justify-content: space-between; gap: 10px; }
-.total-row { margin-top: 10px; display: flex; justify-content: space-between; font-size: 1.1rem; }
+.total-row { display: flex; justify-content: space-between; }
+.total-row.grand { font-size: 1.1rem; font-weight: 700; padding-top: 4px; border-top: 1px dashed var(--border); }
+.summary-box {
+  margin-top: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  background: #fff;
+}
 .cart-actions { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .queue-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px; display: grid; gap: 6px; }
 .queue-item small { color: var(--muted); }

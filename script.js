@@ -18,6 +18,8 @@ const state = {
 const el = {
   menuList: document.getElementById('menuList'),
   cartItems: document.getElementById('cartItems'),
+  subTotal: document.getElementById('subTotal'),
+  taxTotal: document.getElementById('taxTotal'),
   grandTotal: document.getElementById('grandTotal'),
   customerName: document.getElementById('customerName'),
   tableNumber: document.getElementById('tableNumber'),
@@ -126,8 +128,12 @@ function clearCart() {
   renderCart();
 }
 
-function getCartTotal() {
+function getSubTotal() {
   return [...state.cart.values()].reduce((sum, item) => sum + item.price * item.qty, 0);
+}
+
+function getTaxTotal(subtotal) {
+  return Math.round(subtotal * 0.1);
 }
 
 function getCartCount() {
@@ -161,7 +167,11 @@ function renderCart() {
     `).join('');
   }
 
-  el.grandTotal.textContent = fmtIDR(getCartTotal());
+  const subtotal = getSubTotal();
+  const tax = getTaxTotal(subtotal);
+  el.subTotal.textContent = fmtIDR(subtotal);
+  el.taxTotal.textContent = fmtIDR(tax);
+  el.grandTotal.textContent = fmtIDR(subtotal + tax);
 }
 
 function renderQueue() {
@@ -179,6 +189,7 @@ function renderQueue() {
         <strong>${fmtIDR(trx.total)}</strong>
       </div>
       <small>${trx.time} • ${trx.payment}</small>
+      <small>Subtotal: ${fmtIDR(trx.subtotal || trx.total)} • Pajak 10%: ${fmtIDR(trx.tax || 0)}</small>
       <small>${trx.items.map((i) => `${i.name}${i.level ? ` (${i.level})` : ''} x${i.qty}`).join(', ')}</small>
     </article>
   `).join('');
@@ -191,13 +202,18 @@ function sendToCashier() {
     return;
   }
 
+  const subtotal = getSubTotal();
+  const tax = getTaxTotal(subtotal);
+
   state.queue.unshift({
     id: Date.now(),
     customer: el.customerName.value.trim() || 'Guest',
     table: el.tableNumber.value.trim() || '-',
     payment: el.paymentMethod.value,
     items,
-    total: getCartTotal(),
+    subtotal,
+    tax,
+    total: subtotal + tax,
     time: new Date().toLocaleString('id-ID'),
   });
 
