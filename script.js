@@ -26,7 +26,18 @@ const el = {
   sendToCashierBtn: document.getElementById('sendToCashierBtn'),
   cashierQueue: document.getElementById('cashierQueue'),
   menuCardTpl: document.getElementById('menuCardTpl'),
+  tabButtons: [...document.querySelectorAll('.tab-btn')],
+  views: [...document.querySelectorAll('[data-view]')],
 };
+
+function switchView(viewName) {
+  el.tabButtons.forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.target === viewName);
+  });
+  el.views.forEach((panel) => {
+    panel.classList.toggle('active', panel.dataset.view === viewName);
+  });
+}
 
 function renderMenu() {
   el.menuList.innerHTML = '';
@@ -148,11 +159,16 @@ function sendToCashier() {
   localStorage.setItem('cashierQueue', JSON.stringify(state.queue));
   clearCart();
   renderQueue();
+  switchView('queue');
 }
 
+el.tabButtons.forEach((btn) => {
+  btn.addEventListener('click', () => switchView(btn.dataset.target));
+});
 el.clearCartBtn.addEventListener('click', clearCart);
 el.sendToCashierBtn.addEventListener('click', sendToCashier);
 
 renderMenu();
 renderCart();
 renderQueue();
+switchView('menu');

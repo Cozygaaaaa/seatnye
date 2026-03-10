@@ -3,6 +3,7 @@
 Aplikasi web sederhana untuk input menu restoran dan kirim transaksi langsung ke antrian kasir.
 
 ## Fitur
+- Mode mobile (HP) dengan UI terpisah per layar: Daftar Menu, Pesanan Aktif (Keranjang), dan Antrian Kasir.
 - Daftar menu makanan/minuman lengkap dengan gambar pada setiap item (kartu bisa diklik langsung).
 - Keranjang pesanan aktif dengan total otomatis.
 - Input nama pelanggan, nomor meja, dan metode pembayaran.

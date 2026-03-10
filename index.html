@@ -9,17 +9,23 @@
 <body>
   <header class="topbar">
     <h1>🍽️ Menu Resto → Kasir</h1>
-    <p>Input pesanan dari meja, langsung kirim ke antrian kasir.</p>
+    <p>Mode HP: layar terpisah untuk Menu, Keranjang, dan Antrian Kasir.</p>
   </header>
 
+  <nav class="mobile-tabs" aria-label="Navigasi layar HP">
+    <button class="tab-btn active" data-target="menu">Daftar Menu</button>
+    <button class="tab-btn" data-target="cart">Pesanan Aktif</button>
+    <button class="tab-btn" data-target="queue">Antrian Kasir</button>
+  </nav>
+
   <main class="layout">
-    <section class="panel menu-panel">
+    <section class="panel menu-panel active" data-view="menu">
       <h2>Daftar Menu</h2>
       <p class="menu-hint">Klik kartu menu atau tombol <strong>+ Tambah</strong> untuk menambah pesanan.</p>
       <div id="menuList" class="menu-grid"></div>
     </section>
 
-    <section class="panel cart-panel">
+    <section class="panel cart-panel" data-view="cart">
       <h2>Pesanan Aktif</h2>
       <label>
         Nama Pelanggan
@@ -50,7 +56,7 @@
       </div>
     </section>
 
-    <section class="panel cashier-panel">
+    <section class="panel cashier-panel" data-view="queue">
       <h2>Antrian Kasir</h2>
       <div id="cashierQueue" class="queue empty">Belum ada transaksi masuk.</div>
     </section>
