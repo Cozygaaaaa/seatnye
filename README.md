@@ -17,3 +17,7 @@ python3 -m http.server 4173
 ```
 
 Lalu buka `http://localhost:4173`.
+
+## Deploy ke Vercel
+Repo ini sudah menyertakan `vercel.json` agar diperlakukan sebagai static site tanpa build command framework.
+
