@@ -9,24 +9,18 @@
 <body>
   <header class="topbar">
     <h1>🍽️ Resto Direct Kasir (SPA)</h1>
-    <p>Single Page Application: navigasi Menu, Keranjang, Antrian tanpa reload halaman.</p>
+    <p>Pilih menu, atur level (jika ada), lalu lanjut ke keranjang dan antrian kasir.</p>
   </header>
-
-  <nav class="mobile-tabs" aria-label="Navigasi aplikasi">
-    <a class="tab-btn" href="#/menu" data-route="menu">Daftar Menu</a>
-    <a class="tab-btn" href="#/cart" data-route="cart">Pesanan Aktif</a>
-    <a class="tab-btn" href="#/queue" data-route="queue">Antrian Kasir</a>
-  </nav>
 
   <main class="layout">
     <section class="panel" data-view="menu">
       <h2>Daftar Menu</h2>
-      <p class="menu-hint">Klik kartu menu atau tombol <strong>+ Tambah</strong>.</p>
+      <p class="menu-hint">Menu pedas punya pilihan level sebelum ditambahkan.</p>
       <div id="menuList" class="menu-grid"></div>
     </section>
 
     <section class="panel" data-view="cart">
-      <h2>Pesanan Aktif</h2>
+      <h2>Keranjang Pesanan</h2>
       <label>Nama Pelanggan<input id="customerName" type="text" placeholder="Contoh: Budi" /></label>
       <label>Nomor Meja<input id="tableNumber" type="text" placeholder="Contoh: 07" /></label>
       <label>
@@ -52,11 +46,21 @@
     </section>
   </main>
 
+  <nav class="mobile-tabs" aria-label="Navigasi aplikasi">
+    <a class="tab-btn" href="#/menu" data-route="menu">Menu</a>
+    <a class="tab-btn" href="#/cart" data-route="cart">Keranjang <span id="cartBadge" class="badge">0</span></a>
+    <a class="tab-btn" href="#/queue" data-route="queue">Antrian</a>
+  </nav>
+
   <template id="menuCardTpl">
     <article class="menu-card">
       <img class="thumb" alt="" />
       <h3 class="name"></h3>
       <p class="desc"></p>
+      <label class="level-wrap hidden">
+        Pilih Level
+        <select class="level-select"></select>
+      </label>
       <div class="card-footer">
         <span class="price"></span>
         <button class="add-btn">+ Tambah</button>
