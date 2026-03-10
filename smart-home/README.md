@@ -2,13 +2,58 @@
 
 Prototype Web App Smart Home dengan panel CCTV dan TV Remote.
 
-## Menjalankan project
+## Cara Pakai (Lokal)
+
+### 1) Prasyarat
+
+- Node.js 18+ (disarankan LTS)
+- npm 9+
+
+Cek versi:
+
+```bash
+node -v
+npm -v
+```
+
+### 2) Install dependency
 
 ```bash
 cd smart-home
 npm install
+```
+
+### 3) Jalankan aplikasi
+
+```bash
 npm start
 ```
+
+Buka browser ke:
+
+- `http://localhost:3000`
+
+### 4) Cara mencoba fitur
+
+- Klik **CCTV** di sidebar untuk melihat dummy video stream.
+- Klik **TV Remote** di sidebar untuk membuka tombol remote TV.
+- Klik tombol remote (Power, Vol+, CH+, dst) untuk melihat simulasi command melalui `alert`.
+
+### 5) Build production
+
+```bash
+npm run build
+```
+
+Hasil build ada di folder `smart-home/build`.
+
+## Cara Pakai (Vercel)
+
+Repo ini sudah punya `vercel.json` agar Vercel build dari subfolder `smart-home`.
+
+- Import repo ke Vercel.
+- Deploy langsung (tanpa setting custom tambahan pun harusnya sudah terbaca dari `vercel.json`).
+- Jika ingin via dashboard, pastikan output tetap mengarah ke `smart-home/build`.
 
 ## Troubleshooting `npm install` gagal 403 Forbidden
 
@@ -75,7 +120,6 @@ npm login
 
 Build Vercel juga membutuhkan akses ke npm registry saat install dependencies.
 Jika environment lokal/CI memblokir registry, deployment akan gagal saat install.
-
 
 ## Troubleshooting Vercel `404 NOT_FOUND`
 
