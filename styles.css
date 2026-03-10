@@ -1,0 +1,142 @@
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #1f2430;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --border: #e5e7eb;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.topbar {
+  padding: 20px;
+  background: #111827;
+  color: #fff;
+}
+.topbar h1 { margin: 0 0 8px; }
+.topbar p { margin: 0; color: #d1d5db; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr;
+  gap: 16px;
+  padding: 16px;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(17, 24, 39, 0.05);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.menu-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.menu-card .thumb {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.menu-card h3 { margin: 0; font-size: 1rem; }
+.menu-card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+.add-btn, .primary {
+  background: var(--primary);
+  color: #fff;
+}
+.secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+input, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.cart-items, .queue {
+  border: 1px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+  min-height: 140px;
+  display: grid;
+  gap: 8px;
+}
+.empty {
+  color: var(--muted);
+  place-items: center;
+}
+
+.cart-row, .queue-item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.total-row {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+}
+
+.cart-actions {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.queue-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+}
+.queue-item small { color: var(--muted); }
+
+@media (max-width: 1024px) {
+  .layout { grid-template-columns: 1fr; }
+}
