@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resto Direct Kasir SPA</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🍽️ Resto Direct Kasir (SPA)</h1>
+    <p>Pilih menu, kirim ke kasir, lalu pantau di dashboard kasir dengan notifikasi pesanan baru.</p>
+  </header>
+
+  <main class="layout">
+    <section class="panel" data-view="menu">
+      <h2>Daftar Menu</h2>
+      <p class="menu-hint">Menu pedas punya pilihan level sebelum ditambahkan.</p>
+      <div id="menuList" class="menu-grid"></div>
+    </section>
+
+    <section class="panel" data-view="cart">
+      <h2>Keranjang Pesanan</h2>
+      <label>Nama Pelanggan<input id="customerName" type="text" placeholder="Contoh: Budi" /></label>
+      <label>Nomor Meja<input id="tableNumber" type="text" placeholder="Contoh: 07" /></label>
+      <label>
+        Metode Bayar
+        <select id="paymentMethod">
+          <option value="Tunai">Tunai</option>
+          <option value="QRIS">QRIS</option>
+          <option value="Debit">Debit</option>
+        </select>
+      </label>
+
+      <div id="cartItems" class="cart-items empty">Belum ada item.</div>
+      <div class="summary-box">
+        <div class="total-row"><span>Subtotal</span><strong id="subTotal">Rp0</strong></div>
+        <div class="total-row"><span>Pajak 10%</span><strong id="taxTotal">Rp0</strong></div>
+        <div class="total-row grand"><span>Total</span><strong id="grandTotal">Rp0</strong></div>
+      </div>
+      <div class="cart-actions">
+        <button id="clearCartBtn" class="secondary">Kosongkan</button>
+        <button id="sendToCashierBtn" class="primary">Kirim ke Kasir</button>
+      </div>
+    </section>
+
+    <section class="panel" data-view="queue">
+      <h2>Antrian Kasir</h2>
+      <div id="cashierQueue" class="queue empty">Belum ada transaksi masuk.</div>
+    </section>
+
+    <section class="panel" data-view="dashboard">
+      <div class="dashboard-head">
+        <h2>Dashboard Kasir</h2>
+        <button id="enableNotifBtn" class="secondary">Aktifkan Notifikasi</button>
+      </div>
+      <p id="liveStatus" class="status-text">Realtime lokal aktif (antar tab/browser pada device yang sama).</p>
+      <div id="dashboardOrders" class="queue empty">Belum ada pesanan baru.</div>
+    </section>
+  </main>
+
+  <nav class="mobile-tabs" aria-label="Navigasi aplikasi">
+    <a class="tab-btn" href="#/menu" data-route="menu">Menu</a>
+    <a class="tab-btn" href="#/cart" data-route="cart">Keranjang <span id="cartBadge" class="badge">0</span></a>
+    <a class="tab-btn" href="#/queue" data-route="queue">Antrian</a>
+    <a class="tab-btn" href="#/dashboard" data-route="dashboard">Dashboard <span id="notifBadge" class="badge hidden">0</span></a>
+  </nav>
+
+  <template id="menuCardTpl">
+    <article class="menu-card">
+      <img class="thumb" alt="" />
+      <h3 class="name"></h3>
+      <p class="desc"></p>
+      <label class="level-wrap hidden">
+        Pilih Level
+        <select class="level-select"></select>
+      </label>
+      <div class="card-footer">
+        <span class="price"></span>
+        <button class="add-btn">+ Tambah</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
