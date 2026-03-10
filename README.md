@@ -10,6 +10,7 @@ Aplikasi web sederhana berbasis Single Page Application (SPA) untuk input menu r
 - Input nama pelanggan, nomor meja, dan metode pembayaran.
 - Tombol **Kirim ke Kasir** untuk membuat transaksi.
 - Dashboard kasir khusus untuk monitor pesanan masuk terbaru.
+- Tombol **Selesai** di dashboard untuk memindahkan pesanan dari **Orderan Baru** ke **Orderan Selesai**.
 - Realtime lokal antar-tab/browser pada device yang sama via `storage event` + `BroadcastChannel`.
 - Notifikasi pesanan baru: badge dashboard, bunyi beep, dan notifikasi sistem browser (jika diizinkan).
 - Riwayat antrian kasir tersimpan di `localStorage`.

@@ -194,6 +194,25 @@ function transactionItemLine(trx) {
   return trx.items.map((i) => `${i.name}${i.level ? ` (${i.level})` : ''} x${i.qty}`).join(', ');
 }
 
+function getPendingOrders() {
+  return state.queue.filter((trx) => !trx.doneAt);
+}
+
+function getCompletedOrders() {
+  return state.queue.filter((trx) => Boolean(trx.doneAt));
+}
+
+function markOrderDone(orderId) {
+  const target = state.queue.find((trx) => trx.id === orderId);
+  if (!target || target.doneAt) return;
+
+  target.doneAt = new Date().toLocaleString('id-ID');
+  localStorage.setItem('cashierQueue', JSON.stringify(state.queue));
+  publishQueueUpdate();
+  renderQueue();
+  renderDashboard();
+}
+
 function renderQueue() {
   if (state.queue.length === 0) {
     el.cashierQueue.className = 'queue empty';
@@ -216,23 +235,55 @@ function renderQueue() {
 }
 
 function renderDashboard() {
-  if (state.queue.length === 0) {
+  const pendingOrders = getPendingOrders();
+  const completedOrders = getCompletedOrders();
+
+  if (pendingOrders.length === 0 && completedOrders.length === 0) {
     el.dashboardOrders.className = 'queue empty';
     el.dashboardOrders.textContent = 'Belum ada pesanan baru.';
     return;
   }
 
-  el.dashboardOrders.className = 'queue';
-  el.dashboardOrders.innerHTML = state.queue.map((trx, idx) => `
-    <article class="queue-item ${idx === 0 ? 'is-new' : ''}">
-      <div class="queue-item-head">
-        <strong>${trx.customer} (Meja ${trx.table})</strong>
-        <strong>${fmtIDR(trx.total)}</strong>
-      </div>
-      <small>${trx.time} • ${trx.payment}</small>
-      <small>${transactionItemLine(trx)}</small>
-    </article>
-  `).join('');
+  el.dashboardOrders.className = 'queue dashboard-sections';
+
+  const pendingHtml = pendingOrders.length
+    ? pendingOrders.map((trx, idx) => `
+      <article class="queue-item ${idx === 0 ? 'is-new' : ''}">
+        <div class="queue-item-head">
+          <strong>${trx.customer} (Meja ${trx.table})</strong>
+          <strong>${fmtIDR(trx.total)}</strong>
+        </div>
+        <small>${trx.time} • ${trx.payment}</small>
+        <small>${transactionItemLine(trx)}</small>
+        <button class="secondary done-btn" data-order-id="${trx.id}">Selesai</button>
+      </article>
+    `).join('')
+    : '<p class="section-empty">Belum ada orderan baru.</p>';
+
+  const completedHtml = completedOrders.length
+    ? completedOrders.map((trx) => `
+      <article class="queue-item done-item">
+        <div class="queue-item-head">
+          <strong>${trx.customer} (Meja ${trx.table})</strong>
+          <strong>${fmtIDR(trx.total)}</strong>
+        </div>
+        <small>${trx.time} • ${trx.payment}</small>
+        <small><strong>Selesai:</strong> ${trx.doneAt}</small>
+        <small>${transactionItemLine(trx)}</small>
+      </article>
+    `).join('')
+    : '<p class="section-empty">Belum ada order yang selesai.</p>';
+
+  el.dashboardOrders.innerHTML = `
+    <section class="dashboard-group">
+      <h3>Orderan Baru</h3>
+      <div class="dashboard-group-list">${pendingHtml}</div>
+    </section>
+    <section class="dashboard-group">
+      <h3>Orderan Selesai</h3>
+      <div class="dashboard-group-list">${completedHtml}</div>
+    </section>
+  `;
 }
 
 function playBeep() {
@@ -343,6 +394,12 @@ if (channel) {
 el.clearCartBtn.addEventListener('click', clearCart);
 el.sendToCashierBtn.addEventListener('click', sendToCashier);
 el.enableNotifBtn.addEventListener('click', enableNotification);
+el.dashboardOrders.addEventListener('click', (event) => {
+  const doneBtn = event.target.closest('.done-btn');
+  if (!doneBtn) return;
+  markOrderDone(Number(doneBtn.dataset.orderId));
+});
+
 el.cartItems.addEventListener('click', (event) => {
   const btn = event.target.closest('.qty-btn');
   if (!btn) return;
