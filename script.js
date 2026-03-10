@@ -7,12 +7,15 @@ const MENU_ITEMS = [
   { id: 6, name: 'Pisang Coklat', desc: 'Camilan penutup', price: 18000, image: 'assets/pisang-coklat.svg' },
 ];
 
-const ROUTES = new Set(['menu', 'cart', 'queue']);
+const ROUTES = new Set(['menu', 'cart', 'queue', 'dashboard']);
 const fmtIDR = (n) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n);
+
+const channel = 'BroadcastChannel' in window ? new BroadcastChannel('seatnye-cashier-sync') : null;
 
 const state = {
   cart: new Map(),
   queue: JSON.parse(localStorage.getItem('cashierQueue') || '[]'),
+  unreadNotifications: 0,
 };
 
 const el = {
@@ -27,10 +30,14 @@ const el = {
   clearCartBtn: document.getElementById('clearCartBtn'),
   sendToCashierBtn: document.getElementById('sendToCashierBtn'),
   cashierQueue: document.getElementById('cashierQueue'),
+  dashboardOrders: document.getElementById('dashboardOrders'),
+  enableNotifBtn: document.getElementById('enableNotifBtn'),
+  liveStatus: document.getElementById('liveStatus'),
   menuCardTpl: document.getElementById('menuCardTpl'),
   tabLinks: [...document.querySelectorAll('[data-route]')],
   views: [...document.querySelectorAll('[data-view]')],
   cartBadge: document.getElementById('cartBadge'),
+  notifBadge: document.getElementById('notifBadge'),
 };
 
 function getCurrentRoute() {
@@ -46,6 +53,15 @@ function renderRoute() {
   const activeRoute = getCurrentRoute();
   el.tabLinks.forEach((link) => link.classList.toggle('active', link.dataset.route === activeRoute));
   el.views.forEach((view) => view.classList.toggle('active', view.dataset.view === activeRoute));
+  if (activeRoute === 'dashboard') {
+    state.unreadNotifications = 0;
+    renderNotifBadge();
+  }
+}
+
+function renderNotifBadge() {
+  el.notifBadge.textContent = String(state.unreadNotifications);
+  el.notifBadge.classList.toggle('hidden', state.unreadNotifications === 0);
 }
 
 function itemKey(itemId, level) {
@@ -174,6 +190,10 @@ function renderCart() {
   el.grandTotal.textContent = fmtIDR(subtotal + tax);
 }
 
+function transactionItemLine(trx) {
+  return trx.items.map((i) => `${i.name}${i.level ? ` (${i.level})` : ''} x${i.qty}`).join(', ');
+}
+
 function renderQueue() {
   if (state.queue.length === 0) {
     el.cashierQueue.className = 'queue empty';
@@ -190,9 +210,89 @@ function renderQueue() {
       </div>
       <small>${trx.time} • ${trx.payment}</small>
       <small>Subtotal: ${fmtIDR(trx.subtotal || trx.total)} • Pajak 10%: ${fmtIDR(trx.tax || 0)}</small>
-      <small>${trx.items.map((i) => `${i.name}${i.level ? ` (${i.level})` : ''} x${i.qty}`).join(', ')}</small>
+      <small>${transactionItemLine(trx)}</small>
     </article>
   `).join('');
+}
+
+function renderDashboard() {
+  if (state.queue.length === 0) {
+    el.dashboardOrders.className = 'queue empty';
+    el.dashboardOrders.textContent = 'Belum ada pesanan baru.';
+    return;
+  }
+
+  el.dashboardOrders.className = 'queue';
+  el.dashboardOrders.innerHTML = state.queue.map((trx, idx) => `
+    <article class="queue-item ${idx === 0 ? 'is-new' : ''}">
+      <div class="queue-item-head">
+        <strong>${trx.customer} (Meja ${trx.table})</strong>
+        <strong>${fmtIDR(trx.total)}</strong>
+      </div>
+      <small>${trx.time} • ${trx.payment}</small>
+      <small>${transactionItemLine(trx)}</small>
+    </article>
+  `).join('');
+}
+
+function playBeep() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+    oscillator.type = 'sine';
+    oscillator.frequency.value = 880;
+    gain.gain.value = 0.05;
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+    oscillator.start();
+    oscillator.stop(ctx.currentTime + 0.2);
+  } catch {
+    // ignore browser limitation
+  }
+}
+
+function notifyNewOrder() {
+  state.unreadNotifications += 1;
+  renderNotifBadge();
+  playBeep();
+
+  if ('Notification' in window && Notification.permission === 'granted') {
+    new Notification('Pesanan Baru Masuk', { body: 'Cek Dashboard Kasir sekarang.' });
+  }
+}
+
+function syncQueueAndNotify() {
+  const latest = JSON.parse(localStorage.getItem('cashierQueue') || '[]');
+  const prevLatestId = state.queue[0]?.id;
+  const newLatestId = latest[0]?.id;
+
+  state.queue = latest;
+  renderQueue();
+  renderDashboard();
+
+  if (newLatestId && prevLatestId !== newLatestId) {
+    notifyNewOrder();
+  }
+}
+
+function publishQueueUpdate() {
+  localStorage.setItem('cashierQueueSync', String(Date.now()));
+  if (channel) {
+    channel.postMessage({ type: 'queue-updated' });
+  }
+}
+
+async function enableNotification() {
+  if (!('Notification' in window)) {
+    el.liveStatus.textContent = 'Browser ini tidak mendukung notifikasi sistem.';
+    return;
+  }
+
+  const permission = await Notification.requestPermission();
+  el.liveStatus.textContent = permission === 'granted'
+    ? 'Notifikasi sistem aktif. Dashboard akan memberi alert pesanan baru.'
+    : 'Notifikasi belum diizinkan. Tetap ada badge dan bunyi di halaman.';
 }
 
 function sendToCashier() {
@@ -218,14 +318,31 @@ function sendToCashier() {
   });
 
   localStorage.setItem('cashierQueue', JSON.stringify(state.queue));
-  clearCart();
+  publishQueueUpdate();
   renderQueue();
-  navigate('queue');
+  renderDashboard();
+  notifyNewOrder();
+  clearCart();
+  navigate('dashboard');
 }
 
 window.addEventListener('hashchange', renderRoute);
+window.addEventListener('storage', (event) => {
+  if (event.key === 'cashierQueue' || event.key === 'cashierQueueSync') {
+    syncQueueAndNotify();
+  }
+});
+if (channel) {
+  channel.onmessage = (event) => {
+    if (event.data?.type === 'queue-updated') {
+      syncQueueAndNotify();
+    }
+  };
+}
+
 el.clearCartBtn.addEventListener('click', clearCart);
 el.sendToCashierBtn.addEventListener('click', sendToCashier);
+el.enableNotifBtn.addEventListener('click', enableNotification);
 el.cartItems.addEventListener('click', (event) => {
   const btn = event.target.closest('.qty-btn');
   if (!btn) return;
@@ -235,5 +352,7 @@ el.cartItems.addEventListener('click', (event) => {
 renderMenu();
 renderCart();
 renderQueue();
+renderDashboard();
+renderNotifBadge();
 if (!window.location.hash) navigate('menu');
 renderRoute();

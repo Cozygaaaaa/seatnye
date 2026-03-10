@@ -3,12 +3,15 @@
 Aplikasi web sederhana berbasis Single Page Application (SPA) untuk input menu restoran dan kirim transaksi langsung ke antrian kasir.
 
 ## Fitur
-- Konsep Single Page Application (SPA) dengan route hash: `#/menu`, `#/cart`, `#/queue` dan navigasi bawah (bottom nav).
+- Konsep Single Page Application (SPA) dengan route hash: `#/menu`, `#/cart`, `#/queue`, `#/dashboard` dan navigasi bawah (bottom nav).
 - Mode mobile (HP) dengan UI terpisah per layar: Daftar Menu, Pesanan Aktif (Keranjang), dan Antrian Kasir.
 - Daftar menu makanan/minuman lengkap dengan gambar, termasuk pilihan level untuk menu pedas tertentu.
 - Keranjang pesanan dengan kontrol jumlah (+/-), subtotal, pajak 10% otomatis, dan total otomatis.
 - Input nama pelanggan, nomor meja, dan metode pembayaran.
 - Tombol **Kirim ke Kasir** untuk membuat transaksi.
+- Dashboard kasir khusus untuk monitor pesanan masuk terbaru.
+- Realtime lokal antar-tab/browser pada device yang sama via `storage event` + `BroadcastChannel`.
+- Notifikasi pesanan baru: badge dashboard, bunyi beep, dan notifikasi sistem browser (jika diizinkan).
 - Riwayat antrian kasir tersimpan di `localStorage`.
 
 ## Menjalankan

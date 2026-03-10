@@ -30,7 +30,7 @@ body {
 
 .mobile-tabs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   padding: 10px;
   position: fixed;
@@ -195,4 +195,22 @@ input, select {
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
   }
+}
+
+
+.dashboard-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-text {
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.queue-item.is-new {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
 }
