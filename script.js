@@ -7,8 +7,8 @@ const MENU_ITEMS = [
   { id: 6, name: 'Pisang Coklat', desc: 'Camilan penutup', price: 18000, image: 'assets/pisang-coklat.svg' },
 ];
 
-const fmtIDR = (n) =>
-  new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n);
+const ROUTES = new Set(['menu', 'cart', 'queue']);
+const fmtIDR = (n) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n);
 
 const state = {
   cart: new Map(),
@@ -26,17 +26,23 @@ const el = {
   sendToCashierBtn: document.getElementById('sendToCashierBtn'),
   cashierQueue: document.getElementById('cashierQueue'),
   menuCardTpl: document.getElementById('menuCardTpl'),
-  tabButtons: [...document.querySelectorAll('.tab-btn')],
+  tabLinks: [...document.querySelectorAll('[data-route]')],
   views: [...document.querySelectorAll('[data-view]')],
 };
 
-function switchView(viewName) {
-  el.tabButtons.forEach((btn) => {
-    btn.classList.toggle('active', btn.dataset.target === viewName);
-  });
-  el.views.forEach((panel) => {
-    panel.classList.toggle('active', panel.dataset.view === viewName);
-  });
+function getCurrentRoute() {
+  const route = window.location.hash.replace('#/', '') || 'menu';
+  return ROUTES.has(route) ? route : 'menu';
+}
+
+function navigate(route) {
+  window.location.hash = `/${route}`;
+}
+
+function renderRoute() {
+  const activeRoute = getCurrentRoute();
+  el.tabLinks.forEach((link) => link.classList.toggle('active', link.dataset.route === activeRoute));
+  el.views.forEach((view) => view.classList.toggle('active', view.dataset.view === activeRoute));
 }
 
 function renderMenu() {
@@ -48,7 +54,6 @@ function renderMenu() {
 
     thumb.src = item.image;
     thumb.alt = item.name;
-
     card.querySelector('.name').textContent = item.name;
     card.querySelector('.desc').textContent = item.desc;
     card.querySelector('.price').textContent = fmtIDR(item.price);
@@ -75,8 +80,7 @@ function renderMenu() {
 
 function addToCart(item) {
   const existing = state.cart.get(item.id);
-  const qty = existing ? existing.qty + 1 : 1;
-  state.cart.set(item.id, { ...item, qty });
+  state.cart.set(item.id, { ...item, qty: existing ? existing.qty + 1 : 1 });
   renderCart();
 }
 
@@ -96,16 +100,7 @@ function renderCart() {
     el.cartItems.textContent = 'Belum ada item.';
   } else {
     el.cartItems.className = 'cart-items';
-    el.cartItems.innerHTML = items
-      .map(
-        (item) => `
-          <div class="cart-row">
-            <span>${item.name} x${item.qty}</span>
-            <strong>${fmtIDR(item.price * item.qty)}</strong>
-          </div>
-        `,
-      )
-      .join('');
+    el.cartItems.innerHTML = items.map((item) => `<div class="cart-row"><span>${item.name} x${item.qty}</span><strong>${fmtIDR(item.price * item.qty)}</strong></div>`).join('');
   }
   el.grandTotal.textContent = fmtIDR(getCartTotal());
 }
@@ -118,57 +113,47 @@ function renderQueue() {
   }
 
   el.cashierQueue.className = 'queue';
-  el.cashierQueue.innerHTML = state.queue
-    .map(
-      (trx) => `
-      <article class="queue-item">
-        <div class="queue-item-head">
-          <strong>${trx.customer} (Meja ${trx.table})</strong>
-          <strong>${fmtIDR(trx.total)}</strong>
-        </div>
-        <small>${trx.time} • ${trx.payment}</small>
-        <small>${trx.items.map((i) => `${i.name} x${i.qty}`).join(', ')}</small>
-      </article>
-    `,
-    )
-    .join('');
+  el.cashierQueue.innerHTML = state.queue.map((trx) => `
+    <article class="queue-item">
+      <div class="queue-item-head">
+        <strong>${trx.customer} (Meja ${trx.table})</strong>
+        <strong>${fmtIDR(trx.total)}</strong>
+      </div>
+      <small>${trx.time} • ${trx.payment}</small>
+      <small>${trx.items.map((i) => `${i.name} x${i.qty}`).join(', ')}</small>
+    </article>
+  `).join('');
 }
 
 function sendToCashier() {
-  const customer = el.customerName.value.trim() || 'Guest';
-  const table = el.tableNumber.value.trim() || '-';
-  const payment = el.paymentMethod.value;
   const items = [...state.cart.values()];
-
   if (!items.length) {
     alert('Pesanan masih kosong.');
     return;
   }
 
-  const trx = {
+  state.queue.unshift({
     id: Date.now(),
-    customer,
-    table,
-    payment,
+    customer: el.customerName.value.trim() || 'Guest',
+    table: el.tableNumber.value.trim() || '-',
+    payment: el.paymentMethod.value,
     items,
     total: getCartTotal(),
     time: new Date().toLocaleString('id-ID'),
-  };
+  });
 
-  state.queue.unshift(trx);
   localStorage.setItem('cashierQueue', JSON.stringify(state.queue));
   clearCart();
   renderQueue();
-  switchView('queue');
+  navigate('queue');
 }
 
-el.tabButtons.forEach((btn) => {
-  btn.addEventListener('click', () => switchView(btn.dataset.target));
-});
+window.addEventListener('hashchange', renderRoute);
 el.clearCartBtn.addEventListener('click', clearCart);
 el.sendToCashierBtn.addEventListener('click', sendToCashier);
 
 renderMenu();
 renderCart();
 renderQueue();
-switchView('menu');
+if (!window.location.hash) navigate('menu');
+renderRoute();

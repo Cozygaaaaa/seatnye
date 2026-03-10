@@ -1,8 +1,9 @@
 # Resto Menu → Kasir
 
-Aplikasi web sederhana untuk input menu restoran dan kirim transaksi langsung ke antrian kasir.
+Aplikasi web sederhana berbasis Single Page Application (SPA) untuk input menu restoran dan kirim transaksi langsung ke antrian kasir.
 
 ## Fitur
+- Konsep Single Page Application (SPA) dengan route hash: `#/menu`, `#/cart`, `#/queue`.
 - Mode mobile (HP) dengan UI terpisah per layar: Daftar Menu, Pesanan Aktif (Keranjang), dan Antrian Kasir.
 - Daftar menu makanan/minuman lengkap dengan gambar pada setiap item (kartu bisa diklik langsung).
 - Keranjang pesanan aktif dengan total otomatis.

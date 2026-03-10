@@ -3,38 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resto Direct Kasir</title>
+  <title>Resto Direct Kasir SPA</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <h1>🍽️ Menu Resto → Kasir</h1>
-    <p>Mode HP: layar terpisah untuk Menu, Keranjang, dan Antrian Kasir.</p>
+    <h1>🍽️ Resto Direct Kasir (SPA)</h1>
+    <p>Single Page Application: navigasi Menu, Keranjang, Antrian tanpa reload halaman.</p>
   </header>
 
-  <nav class="mobile-tabs" aria-label="Navigasi layar HP">
-    <button class="tab-btn active" data-target="menu">Daftar Menu</button>
-    <button class="tab-btn" data-target="cart">Pesanan Aktif</button>
-    <button class="tab-btn" data-target="queue">Antrian Kasir</button>
+  <nav class="mobile-tabs" aria-label="Navigasi aplikasi">
+    <a class="tab-btn" href="#/menu" data-route="menu">Daftar Menu</a>
+    <a class="tab-btn" href="#/cart" data-route="cart">Pesanan Aktif</a>
+    <a class="tab-btn" href="#/queue" data-route="queue">Antrian Kasir</a>
   </nav>
 
   <main class="layout">
-    <section class="panel menu-panel active" data-view="menu">
+    <section class="panel" data-view="menu">
       <h2>Daftar Menu</h2>
-      <p class="menu-hint">Klik kartu menu atau tombol <strong>+ Tambah</strong> untuk menambah pesanan.</p>
+      <p class="menu-hint">Klik kartu menu atau tombol <strong>+ Tambah</strong>.</p>
       <div id="menuList" class="menu-grid"></div>
     </section>
 
-    <section class="panel cart-panel" data-view="cart">
+    <section class="panel" data-view="cart">
       <h2>Pesanan Aktif</h2>
-      <label>
-        Nama Pelanggan
-        <input id="customerName" type="text" placeholder="Contoh: Budi" />
-      </label>
-      <label>
-        Nomor Meja
-        <input id="tableNumber" type="text" placeholder="Contoh: 07" />
-      </label>
+      <label>Nama Pelanggan<input id="customerName" type="text" placeholder="Contoh: Budi" /></label>
+      <label>Nomor Meja<input id="tableNumber" type="text" placeholder="Contoh: 07" /></label>
       <label>
         Metode Bayar
         <select id="paymentMethod">
@@ -45,18 +39,14 @@
       </label>
 
       <div id="cartItems" class="cart-items empty">Belum ada item.</div>
-      <div class="total-row">
-        <span>Total</span>
-        <strong id="grandTotal">Rp0</strong>
-      </div>
-
+      <div class="total-row"><span>Total</span><strong id="grandTotal">Rp0</strong></div>
       <div class="cart-actions">
         <button id="clearCartBtn" class="secondary">Kosongkan</button>
         <button id="sendToCashierBtn" class="primary">Kirim ke Kasir</button>
       </div>
     </section>
 
-    <section class="panel cashier-panel" data-view="queue">
+    <section class="panel" data-view="queue">
       <h2>Antrian Kasir</h2>
       <div id="cashierQueue" class="queue empty">Belum ada transaksi masuk.</div>
     </section>
