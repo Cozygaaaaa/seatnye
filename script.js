@@ -32,13 +32,32 @@ function renderMenu() {
   el.menuList.innerHTML = '';
   MENU_ITEMS.forEach((item) => {
     const card = el.menuCardTpl.content.cloneNode(true);
+    const article = card.querySelector('.menu-card');
     const thumb = card.querySelector('.thumb');
+
     thumb.src = item.image;
     thumb.alt = item.name;
+
     card.querySelector('.name').textContent = item.name;
     card.querySelector('.desc').textContent = item.desc;
     card.querySelector('.price').textContent = fmtIDR(item.price);
-    card.querySelector('.add-btn').addEventListener('click', () => addToCart(item));
+
+    article.setAttribute('role', 'button');
+    article.setAttribute('tabindex', '0');
+    article.setAttribute('aria-label', `Tambah ${item.name} ke pesanan`);
+    article.addEventListener('click', () => addToCart(item));
+    article.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        addToCart(item);
+      }
+    });
+
+    card.querySelector('.add-btn').addEventListener('click', (event) => {
+      event.stopPropagation();
+      addToCart(item);
+    });
+
     el.menuList.appendChild(card);
   });
 }

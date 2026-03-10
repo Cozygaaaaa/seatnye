@@ -38,6 +38,12 @@ body {
   box-shadow: 0 2px 8px rgba(17, 24, 39, 0.05);
 }
 
+.menu-hint {
+  margin-top: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -50,6 +56,18 @@ body {
   padding: 12px;
   display: grid;
   gap: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(17, 24, 39, 0.08);
+}
+
+.menu-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .menu-card .thumb {
