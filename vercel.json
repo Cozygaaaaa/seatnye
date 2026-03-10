@@ -1,12 +1,13 @@
 {
-  "version": 2,
-  "builds": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "cd smart-home && npm install",
+  "buildCommand": "cd smart-home && npm run build",
+  "outputDirectory": "smart-home/build",
+  "rewrites": [
     {
-      "src": "smart-home/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

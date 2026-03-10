@@ -76,3 +76,32 @@ npm login
 Build Vercel juga membutuhkan akses ke npm registry saat install dependencies.
 Jika environment lokal/CI memblokir registry, deployment akan gagal saat install.
 
+
+## Troubleshooting Vercel `404 NOT_FOUND`
+
+Jika deployment sukses tetapi URL preview menampilkan `404 NOT_FOUND`, umumnya masalahnya ada di **konfigurasi output/build**, bukan di komponen React.
+
+### Root cause (yang terjadi)
+
+- Vercel mencari file hasil build (mis. `index.html`) di lokasi output yang tidak sesuai.
+- Atau request ke path tertentu tidak di-rewrite ke `index.html` pada Single Page App.
+
+### Fix yang dipakai di repo ini
+
+Konfigurasi `vercel.json` sekarang:
+
+- install/build dijalankan di subfolder `smart-home`.
+- output diarahkan ke `smart-home/build` (folder output CRA).
+- semua path di-rewrite ke `/index.html` agar route SPA tidak 404.
+
+### Warning signs ke depan
+
+- App ada di subfolder, tapi Vercel masih build dari root tanpa pengaturan root/output.
+- Build sukses, tapi saat buka preview langsung `NOT_FOUND`.
+- Route non-root (mis. `/tv`, `/dashboard`) selalu 404 setelah refresh.
+
+### Alternatif valid
+
+1. **Set Root Directory di Vercel Project Settings** ke `smart-home` (tanpa banyak config file).
+2. **Pertahankan project di root repo** agar auto-detect framework berjalan default.
+3. **Gunakan `vercel.json` seperti sekarang** untuk kontrol eksplisit (lebih jelas, tapi perlu maintenance saat struktur folder berubah).
