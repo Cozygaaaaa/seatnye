@@ -7,43 +7,102 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <header class="topbar">
+    <header class="topbar topbar-main">
       <div class="container topbar-inner">
-        <div class="brand">SeatNye Travel</div>
-        <nav>
-          <a href="index.html">Home</a>
-          <a href="search.html">Search Hotel</a>
-          <a href="booking.html">My Booking</a>
+        <div class="brand">seatnye</div>
+        <nav class="top-nav">
+          <a href="#">IDR | ID</a>
+          <a href="#">Promo</a>
+          <a href="#">Bisnis</a>
+          <a href="#">Bantuan</a>
+          <a href="booking.html">Pesanan</a>
+          <a class="btn-login" href="#">Log In</a>
+          <a class="btn-signup" href="#">Daftar</a>
         </nav>
+      </div>
+      <div class="sub-nav-wrap">
+        <div class="container sub-nav">
+          <a href="search.html">Hotel</a>
+          <a href="#">Tiket Pesawat</a>
+          <a href="#">Tiket Kereta</a>
+          <a href="#">Tiket Bus & Travel</a>
+          <a href="#">Rental Mobil</a>
+          <a href="#">Atraksi & Aktivitas</a>
+          <a href="#">Produk Lainnya</a>
+        </div>
       </div>
     </header>
 
-    <section class="hero">
-      <div class="container hero-inner">
-        <div>
-          <p class="eyebrow">Travel & Hotel Deals</p>
-          <h1>Rencanakan Liburan Serasa OTA Modern</h1>
-          <p class="hero-sub">Cari hotel, lihat foto kamar, lalu booking cepat dari satu platform.</p>
+    <section class="hero traveloka-hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <h1>Pilihan utama untuk jelajahi dunia</h1>
+
+        <div class="service-tabs">
+          <button class="active">Hotel</button>
+          <button>Tiket Pesawat</button>
+          <button>Tiket Kereta</button>
+          <button>Tiket Bus & Travel</button>
+          <button>Rental Mobil</button>
+          <button>Lainnya</button>
         </div>
 
-        <div class="search-card card">
-          <h3>Quick Search</h3>
-          <div class="search-grid">
-            <input type="text" placeholder="Kota tujuan" />
-            <input type="date" />
-            <input type="date" />
-            <select>
-              <option>2 Tamu · 1 Kamar</option>
-              <option>1 Tamu · 1 Kamar</option>
-              <option>4 Tamu · 2 Kamar</option>
-            </select>
+        <div class="search-card large card">
+          <div class="trip-mode">
+            <span class="active">Sekali Jalan / Pulang Pergi</span>
+            <span>Multi-kota</span>
           </div>
-          <a class="btn-primary" href="search.html">Cari Hotel Sekarang</a>
+          <div class="search-row">
+            <input placeholder="Dari: Jakarta (JKTA)" />
+            <input placeholder="Ke: Bali (DPS)" />
+            <input type="date" />
+            <button class="btn-search">🔍</button>
+          </div>
+          <div class="quick-links">
+            <span>Cari Inspirasi Terbang</span>
+            <span>Notifikasi Harga</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <main class="container dashboard">
+    <main class="container home-sections">
+      <section class="promo-banner cardless">
+        <div class="promo-banner-inner">
+          <div>
+            <h3>Ramadan FULL Promo</h3>
+            <p>Hotel cashback hingga 60% + Voucher pengguna baru</p>
+          </div>
+          <a href="search.html">Pesan sekarang</a>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Kupon Diskon 10% untuk Pengguna Baru</h2>
+          <a href="#">Lihat Semua</a>
+        </div>
+        <p class="section-sub">Berlaku untuk transaksi pertama di aplikasi SeatNye Travel.</p>
+
+        <div class="coupon-grid">
+          <article class="coupon-card">
+            <h4>Hemat 10% Pemesanan Hotel Pertama</h4>
+            <p>Berlaku untuk pengguna baru.</p>
+            <div class="coupon-foot"><strong>JALANYUK</strong><button>Copy</button></div>
+          </article>
+          <article class="coupon-card">
+            <h4>Cashback 12% Tiket Bus & Travel</h4>
+            <p>Min. transaksi Rp 150rb.</p>
+            <div class="coupon-foot"><strong>BUSHEMAT</strong><button>Copy</button></div>
+          </article>
+          <article class="coupon-card">
+            <h4>Diskon 15% Antar Jemput Bandara</h4>
+            <p>Khusus rute kota besar.</p>
+            <div class="coupon-foot"><strong>AIRPORT15</strong><button>Copy</button></div>
+          </article>
+        </div>
+      </section>
+
       <section>
         <div class="section-head">
           <h2>Pilihan Kamar Populer</h2>
