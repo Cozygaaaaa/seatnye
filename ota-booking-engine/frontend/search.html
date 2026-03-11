@@ -3,20 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OTA Search</title>
+    <title>Search Hotel - SeatNye Travel</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <main class="container">
-      <h2>Search Hotel</h2>
-      <div class="form-row">
-        <input id="city" placeholder="City (e.g. Bali)" />
-        <input id="q" placeholder="Keyword (e.g. beach)" />
-        <button id="searchBtn">Search</button>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand">SeatNye Travel</div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="search.html">Search Hotel</a>
+          <a href="booking.html">My Booking</a>
+        </nav>
       </div>
-      <div id="hotelList" class="cards"></div>
-      <a href="index.html">← Back</a>
+    </header>
+
+    <main class="container dashboard-page">
+      <section class="section-head">
+        <h2>Search Hotel</h2>
+        <a href="index.html">← Kembali ke Home</a>
+      </section>
+
+      <section class="card search-panel">
+        <div class="form-row">
+          <input id="city" placeholder="City (contoh: Bali)" />
+          <input id="q" placeholder="Keyword (beach, city, family)" />
+          <button id="searchBtn">Search</button>
+        </div>
+      </section>
+
+      <section>
+        <div id="hotelList" class="cards"></div>
+      </section>
     </main>
+
     <script src="js/app.js"></script>
   </body>
 </html>

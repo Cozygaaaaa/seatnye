@@ -5,6 +5,17 @@ function getQueryParam(key) {
   return params.get(key);
 }
 
+function getHotelImage(name = "") {
+  const key = name.toLowerCase();
+  if (key.includes("ocean")) {
+    return "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=80";
+  }
+  if (key.includes("mountain")) {
+    return "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80";
+  }
+  return "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80";
+}
+
 async function searchHotel() {
   const city = document.getElementById("city")?.value?.trim() || "";
   const q = document.getElementById("q")?.value?.trim() || "";
@@ -30,14 +41,16 @@ async function searchHotel() {
     hotelList.innerHTML = data
       .map(
         (hotel) => `
-        <div class="card">
-          <h3>${hotel.name}</h3>
-          <p>${hotel.city}</p>
-          <p>⭐ ${hotel.rating}</p>
-          <p>$${hotel.price}/night</p>
-          <p>${hotel.description}</p>
-          <a href="booking.html?room_id=${hotel.featured_room_id}">Book</a>
-        </div>
+        <article class="room-card card">
+          <img src="${getHotelImage(hotel.name)}" alt="${hotel.name}" />
+          <div class="room-content">
+            <h3>${hotel.name}</h3>
+            <p>${hotel.city} · ⭐ ${hotel.rating}</p>
+            <p>${hotel.description}</p>
+            <p class="price">$${hotel.price}/night</p>
+            <a href="booking.html?room_id=${hotel.featured_room_id}">Pilih Kamar</a>
+          </div>
+        </article>
       `
       )
       .join("");

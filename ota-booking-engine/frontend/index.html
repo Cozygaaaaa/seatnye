@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SeatNye Travel - Dashboard</title>
+    <title>SeatNye Travel - Home</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -12,7 +12,7 @@
         <div class="brand">SeatNye Travel</div>
         <nav>
           <a href="index.html">Home</a>
-          <a href="search.html">Hotels</a>
+          <a href="search.html">Search Hotel</a>
           <a href="booking.html">My Booking</a>
         </nav>
       </div>
@@ -22,14 +22,14 @@
       <div class="container hero-inner">
         <div>
           <p class="eyebrow">Travel & Hotel Deals</p>
-          <h1>Rencanakan Liburan Serasa Traveloka</h1>
-          <p class="hero-sub">Cari hotel, bandingkan harga, dan booking cepat dalam satu dashboard.</p>
+          <h1>Rencanakan Liburan Serasa OTA Modern</h1>
+          <p class="hero-sub">Cari hotel, lihat foto kamar, lalu booking cepat dari satu platform.</p>
         </div>
 
         <div class="search-card card">
-          <h3>Hotel Search</h3>
+          <h3>Quick Search</h3>
           <div class="search-grid">
-            <input type="text" placeholder="Kota tujuan (Bali, Bandung...)" />
+            <input type="text" placeholder="Kota tujuan" />
             <input type="date" />
             <input type="date" />
             <select>
@@ -38,7 +38,7 @@
               <option>4 Tamu · 2 Kamar</option>
             </select>
           </div>
-          <a class="btn-primary" href="search.html">Cari Hotel</a>
+          <a class="btn-primary" href="search.html">Cari Hotel Sekarang</a>
         </div>
       </div>
     </section>
@@ -46,98 +46,39 @@
     <main class="container dashboard">
       <section>
         <div class="section-head">
-          <h2>Promo Spesial Hari Ini</h2>
-          <a href="#">Lihat Semua</a>
+          <h2>Pilihan Kamar Populer</h2>
+          <a href="search.html">Lihat Semua</a>
         </div>
-        <div class="promo-grid">
-          <article class="promo-card promo-1">
-            <p>Flash Sale</p>
-            <h3>Diskon hingga 40%</h3>
-            <span>Untuk hotel pilihan di Bali</span>
+        <div class="room-grid">
+          <article class="room-card card">
+            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=80" alt="Ocean Deluxe Room" />
+            <div class="room-content">
+              <h3>Ocean Deluxe Room</h3>
+              <p>Ocean View Resort · Bali</p>
+              <p class="price">Mulai <strong>$120</strong>/malam</p>
+              <a href="booking.html?room_id=1">Book Room</a>
+            </div>
           </article>
-          <article class="promo-card promo-2">
-            <p>Weekend Deal</p>
-            <h3>Cashback 15%</h3>
-            <span>Minimum transaksi Rp 750.000</span>
+          <article class="room-card card">
+            <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80" alt="Family Suite Room" />
+            <div class="room-content">
+              <h3>Family Suite Room</h3>
+              <p>Mountain Paradise · Bandung</p>
+              <p class="price">Mulai <strong>$180</strong>/malam</p>
+              <a href="booking.html?room_id=2">Book Room</a>
+            </div>
           </article>
-          <article class="promo-card promo-3">
-            <p>New User</p>
-            <h3>Voucher Rp 100.000</h3>
-            <span>Khusus booking pertama</span>
-          </article>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-head">
-          <h2>Destinasi Populer</h2>
-          <a href="#">Eksplor</a>
-        </div>
-        <div class="destination-grid">
-          <article class="destination-card">
-            <h3>Bali</h3>
-            <p>1.2k hotel tersedia</p>
-          </article>
-          <article class="destination-card">
-            <h3>Bandung</h3>
-            <p>860 hotel tersedia</p>
-          </article>
-          <article class="destination-card">
-            <h3>Jakarta</h3>
-            <p>2.1k hotel tersedia</p>
-          </article>
-          <article class="destination-card">
-            <h3>Yogyakarta</h3>
-            <p>940 hotel tersedia</p>
-          </article>
-        </div>
-      </section>
-
-
-      <section>
-        <div class="section-head">
-          <h2>Akses Dashboard</h2>
-          <a href="#">Multi role</a>
-        </div>
-        <div class="destination-grid">
-          <article class="destination-card"><h3>Customer</h3><p>Pantau booking & loyalty</p><a href="customer-dashboard.html">Buka Dashboard</a></article>
-          <article class="destination-card"><h3>Hotel Partner</h3><p>Kelola kamar & harga</p><a href="partner-dashboard.html">Buka Dashboard</a></article>
-          <article class="destination-card"><h3>Admin</h3><p>Approval hotel & report</p><a href="admin-dashboard.html">Buka Dashboard</a></article>
-          <article class="destination-card"><h3>Search Engine</h3><p>Cari hotel cepat</p><a href="search.html">Mulai Cari</a></article>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-head">
-          <h2>Rekomendasi Hotel</h2>
-          <a href="search.html">Lihat listing</a>
-        </div>
-        <div class="hotel-grid">
-          <article class="hotel-card card">
-            <div class="hotel-badge">Best Seller</div>
-            <h3>Ocean View Resort</h3>
-            <p>Bali · ⭐ 4.7</p>
-            <p class="price">Mulai dari <strong>$120</strong>/malam</p>
-            <a href="booking.html?room_id=1">Book Now</a>
-          </article>
-          <article class="hotel-card card">
-            <div class="hotel-badge">Top Rated</div>
-            <h3>Mountain Paradise</h3>
-            <p>Bandung · ⭐ 4.4</p>
-            <p class="price">Mulai dari <strong>$90</strong>/malam</p>
-            <a href="booking.html?room_id=3">Book Now</a>
-          </article>
-          <article class="hotel-card card">
-            <div class="hotel-badge">Business Trip</div>
-            <h3>City Lights Inn</h3>
-            <p>Jakarta · ⭐ 4.1</p>
-            <p class="price">Mulai dari <strong>$110</strong>/malam</p>
-            <a href="booking.html?room_id=4">Book Now</a>
+          <article class="room-card card">
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80" alt="Business Room" />
+            <div class="room-content">
+              <h3>Business Room</h3>
+              <p>City Lights Inn · Jakarta</p>
+              <p class="price">Mulai <strong>$110</strong>/malam</p>
+              <a href="booking.html?room_id=4">Book Room</a>
+            </div>
           </article>
         </div>
       </section>
     </main>
-
-    <script src="js/app.js"></script>
   </body>
 </html>
