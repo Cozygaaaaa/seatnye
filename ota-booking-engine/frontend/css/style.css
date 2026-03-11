@@ -139,3 +139,30 @@ th { background: #f8fafc; }
 @media (max-width: 900px) {
   .hero-inner, .search-grid, .form-row, .room-grid { grid-template-columns: 1fr; }
 }
+
+.detail-head {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.detail-head img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.mini-btn {
+  border: 0;
+  background: var(--primary);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .detail-head { grid-template-columns: 1fr; }
+}

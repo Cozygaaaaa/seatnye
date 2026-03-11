@@ -25,7 +25,6 @@ async function searchHotel() {
   if (q) params.set("q", q);
 
   const url = `${API_BASE_URL}/hotels${params.toString() ? `?${params.toString()}` : ""}`;
-
   const hotelList = document.getElementById("hotelList");
   if (!hotelList) return;
 
@@ -48,21 +47,58 @@ async function searchHotel() {
             <p>${hotel.city} · ⭐ ${hotel.rating}</p>
             <p>${hotel.description}</p>
             <p class="price">$${hotel.price}/night</p>
-            <a href="booking.html?room_id=${hotel.featured_room_id}">Pilih Kamar</a>
+            <a href="hotel.html?id=${hotel.id}">Lihat Detail</a>
           </div>
         </article>
       `
       )
       .join("");
   } catch (_err) {
-    hotelList.innerHTML =
-      "<p class='error'>Gagal load data hotel. Pastikan backend aktif di port 3000.</p>";
+    hotelList.innerHTML = "<p class='error'>Gagal load data hotel. Pastikan backend aktif.</p>";
+  }
+}
+
+async function loadHotelDetail() {
+  const hotelId = getQueryParam("id");
+  const hotelDetail = document.getElementById("hotelDetail");
+  const roomList = document.getElementById("roomList");
+  if (!hotelId || !hotelDetail || !roomList) return;
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/hotels/${hotelId}`);
+    const hotel = await res.json();
+
+    hotelDetail.innerHTML = `
+      <div class="detail-head">
+        <img src="${getHotelImage(hotel.name)}" alt="${hotel.name}" />
+        <div>
+          <h3>${hotel.name}</h3>
+          <p>${hotel.city} · ⭐ ${hotel.rating}</p>
+          <p>${hotel.description}</p>
+        </div>
+      </div>
+    `;
+
+    roomList.innerHTML = (hotel.rooms || [])
+      .map(
+        (room) => `
+        <article class="card">
+          <h4>${room.room_name}</h4>
+          <p>Capacity: ${room.capacity} pax</p>
+          <p>Stock: ${room.stock}</p>
+          <p class="price">$${room.price}/night</p>
+          <a href="booking.html?room_id=${room.id}">Book this room</a>
+        </article>
+      `
+      )
+      .join("");
+  } catch (_err) {
+    hotelDetail.innerHTML = "<p class='error'>Gagal load detail hotel.</p>";
   }
 }
 
 async function createBooking(event) {
   event.preventDefault();
-
   const formData = new FormData(event.target);
   const payload = Object.fromEntries(formData.entries());
   const result = document.getElementById("bookingResult");
@@ -76,10 +112,47 @@ async function createBooking(event) {
 
     const json = await res.json();
     if (result) result.textContent = JSON.stringify(json, null, 2);
+    await loadBookings();
   } catch (_err) {
-    if (result) {
-      result.textContent = "Gagal membuat booking. Pastikan backend aktif di port 3000.";
+    if (result) result.textContent = "Gagal membuat booking. Pastikan backend aktif di port 3000.";
+  }
+}
+
+async function payBooking(id) {
+  await fetch(`${API_BASE_URL}/bookings/${id}/pay`, { method: "POST" });
+  await loadBookings();
+}
+
+async function loadBookings() {
+  const body = document.getElementById("myBookingBody");
+  if (!body) return;
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/bookings`);
+    const bookings = await res.json();
+
+    if (!bookings.length) {
+      body.innerHTML = `<tr><td colspan="5">Belum ada booking.</td></tr>`;
+      return;
     }
+
+    body.innerHTML = bookings
+      .map(
+        (b) => `<tr>
+          <td>#${b.id}</td>
+          <td>Room ${b.room_id}</td>
+          <td>${b.checkin} → ${b.checkout}</td>
+          <td><span class="pill ${b.status === "confirmed" ? "pill-blue" : "pill-yellow"}">${b.status}</span></td>
+          <td>${b.status === "pending_payment" ? `<button class="mini-btn" data-pay-id="${b.id}">Pay</button>` : "-"}</td>
+        </tr>`
+      )
+      .join("");
+
+    body.querySelectorAll("[data-pay-id]").forEach((btn) => {
+      btn.addEventListener("click", () => payBooking(btn.dataset.payId));
+    });
+  } catch (_err) {
+    body.innerHTML = `<tr><td colspan="5" class="error">Gagal load booking.</td></tr>`;
   }
 }
 
@@ -94,6 +167,8 @@ if (bookingForm) {
   const roomId = getQueryParam("room_id");
   const roomIdInput = document.getElementById("roomIdInput");
   if (roomId && roomIdInput) roomIdInput.value = roomId;
-
   bookingForm.addEventListener("submit", createBooking);
+  loadBookings();
 }
+
+loadHotelDetail();
