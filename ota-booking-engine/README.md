@@ -80,3 +80,10 @@ Jika Vercel menampilkan error **"No Next.js version detected"**, project ini sud
 - `vercel.json` memakai `"framework": null`
 - output deploy diarahkan ke folder static `ota-booking-engine/frontend`
 - root `package.json` disediakan agar proses install/build Vercel tetap valid
+
+## Demo Mode (Tanpa Backend)
+
+Frontend sekarang punya fallback **demo mode**:
+- Jika API backend tidak aktif, halaman `search`, `hotel detail`, dan `my booking` tetap berfungsi.
+- Data booking demo disimpan di `localStorage` browser.
+- Tombol `Pay` di My Booking tetap bisa mengubah status dari `pending_payment` ke `confirmed`.
