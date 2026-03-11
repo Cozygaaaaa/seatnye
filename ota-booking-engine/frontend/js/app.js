@@ -172,3 +172,41 @@ if (bookingForm) {
 }
 
 loadHotelDetail();
+
+
+function initPromoSlider() {
+  const track = document.getElementById("promoTrack");
+  const slider = document.getElementById("promoSlider");
+  const prev = document.getElementById("promoPrev");
+  const next = document.getElementById("promoNext");
+  const dotsWrap = document.getElementById("promoDots");
+  if (!track || !slider || !prev || !next || !dotsWrap) return;
+
+  const slides = Array.from(track.children);
+  let index = 0;
+
+  const dots = slides.map((_, i) => {
+    const dot = document.createElement("button");
+    dot.className = i === 0 ? "active" : "";
+    dot.addEventListener("click", () => goTo(i));
+    dotsWrap.appendChild(dot);
+    return dot;
+  });
+
+  function render() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle("active", i === index));
+  }
+
+  function goTo(i) {
+    index = (i + slides.length) % slides.length;
+    render();
+  }
+
+  prev.addEventListener("click", () => goTo(index - 1));
+  next.addEventListener("click", () => goTo(index + 1));
+
+  setInterval(() => goTo(index + 1), 4500);
+}
+
+initPromoSlider();

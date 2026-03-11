@@ -67,14 +67,39 @@
     </section>
 
     <main class="container home-sections">
-      <section class="promo-banner cardless">
-        <div class="promo-banner-inner">
-          <div>
-            <h3>Ramadan FULL Promo</h3>
-            <p>Hotel cashback hingga 60% + Voucher pengguna baru</p>
-          </div>
-          <a href="search.html">Pesan sekarang</a>
+      <section class="promo-slider" id="promoSlider">
+        <div class="promo-track" id="promoTrack">
+          <article class="promo-slide">
+            <div class="promo-banner-inner">
+              <div>
+                <h3>Ramadan FULL Promo</h3>
+                <p>Hotel cashback hingga 60% + Voucher pengguna baru</p>
+              </div>
+              <a href="search.html">Pesan sekarang</a>
+            </div>
+          </article>
+          <article class="promo-slide">
+            <div class="promo-banner-inner alt-2">
+              <div>
+                <h3>Midnight Sale OTA</h3>
+                <p>Diskon kamar hingga 45% untuk booking jam 22.00-02.00</p>
+              </div>
+              <a href="search.html">Ambil promo</a>
+            </div>
+          </article>
+          <article class="promo-slide">
+            <div class="promo-banner-inner alt-3">
+              <div>
+                <h3>Weekend Escape Deal</h3>
+                <p>Voucher Rp120.000 + cashback 15% khusus akhir pekan</p>
+              </div>
+              <a href="search.html">Lihat deal</a>
+            </div>
+          </article>
         </div>
+        <button class="promo-nav prev" id="promoPrev" aria-label="Promo Sebelumnya">‹</button>
+        <button class="promo-nav next" id="promoNext" aria-label="Promo Berikutnya">›</button>
+        <div class="promo-dots" id="promoDots"></div>
       </section>
 
       <section>
@@ -139,5 +164,7 @@
         </div>
       </section>
     </main>
+
+    <script src="js/app.js"></script>
   </body>
 </html>
