@@ -59,3 +59,12 @@ Buka browser ke `http://localhost:4173/search.html`.
 2. Integrasi Midtrans/Xendit
 3. Dashboard hotel partner
 4. Dashboard admin
+
+## Deploy ke Vercel
+
+Repo ini dikonfigurasi agar request root domain (`/`) diarahkan ke frontend OTA yang berada di subfolder:
+
+- `vercel.json` di root project me-rewrite `/` ke `ota-booking-engine/frontend/index.html`
+- path seperti `/search.html` dan `/booking.html` juga diarahkan ke `ota-booking-engine/frontend/*`
+
+Dengan ini, deploy tidak lagi gagal hanya karena `index.html` tidak ada di root repository.

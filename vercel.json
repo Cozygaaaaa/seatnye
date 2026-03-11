@@ -1,0 +1,18 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "^/$",
+      "dest": "/ota-booking-engine/frontend/index.html"
+    },
+    {
+      "src": "^/(.*)$",
+      "dest": "/ota-booking-engine/frontend/$1"
+    }
+  ]
+}
