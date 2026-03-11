@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SeatNye Travel - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand">SeatNye Travel</div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="search.html">Hotels</a>
+          <a href="booking.html">My Booking</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Travel & Hotel Deals</p>
+          <h1>Rencanakan Liburan Serasa Traveloka</h1>
+          <p class="hero-sub">Cari hotel, bandingkan harga, dan booking cepat dalam satu dashboard.</p>
+        </div>
+
+        <div class="search-card card">
+          <h3>Hotel Search</h3>
+          <div class="search-grid">
+            <input type="text" placeholder="Kota tujuan (Bali, Bandung...)" />
+            <input type="date" />
+            <input type="date" />
+            <select>
+              <option>2 Tamu · 1 Kamar</option>
+              <option>1 Tamu · 1 Kamar</option>
+              <option>4 Tamu · 2 Kamar</option>
+            </select>
+          </div>
+          <a class="btn-primary" href="search.html">Cari Hotel</a>
+        </div>
+      </div>
+    </section>
+
+    <main class="container dashboard">
+      <section>
+        <div class="section-head">
+          <h2>Promo Spesial Hari Ini</h2>
+          <a href="#">Lihat Semua</a>
+        </div>
+        <div class="promo-grid">
+          <article class="promo-card promo-1">
+            <p>Flash Sale</p>
+            <h3>Diskon hingga 40%</h3>
+            <span>Untuk hotel pilihan di Bali</span>
+          </article>
+          <article class="promo-card promo-2">
+            <p>Weekend Deal</p>
+            <h3>Cashback 15%</h3>
+            <span>Minimum transaksi Rp 750.000</span>
+          </article>
+          <article class="promo-card promo-3">
+            <p>New User</p>
+            <h3>Voucher Rp 100.000</h3>
+            <span>Khusus booking pertama</span>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Destinasi Populer</h2>
+          <a href="#">Eksplor</a>
+        </div>
+        <div class="destination-grid">
+          <article class="destination-card">
+            <h3>Bali</h3>
+            <p>1.2k hotel tersedia</p>
+          </article>
+          <article class="destination-card">
+            <h3>Bandung</h3>
+            <p>860 hotel tersedia</p>
+          </article>
+          <article class="destination-card">
+            <h3>Jakarta</h3>
+            <p>2.1k hotel tersedia</p>
+          </article>
+          <article class="destination-card">
+            <h3>Yogyakarta</h3>
+            <p>940 hotel tersedia</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2>Rekomendasi Hotel</h2>
+          <a href="search.html">Lihat listing</a>
+        </div>
+        <div class="hotel-grid">
+          <article class="hotel-card card">
+            <div class="hotel-badge">Best Seller</div>
+            <h3>Ocean View Resort</h3>
+            <p>Bali · ⭐ 4.7</p>
+            <p class="price">Mulai dari <strong>$120</strong>/malam</p>
+            <a href="booking.html?room_id=1">Book Now</a>
+          </article>
+          <article class="hotel-card card">
+            <div class="hotel-badge">Top Rated</div>
+            <h3>Mountain Paradise</h3>
+            <p>Bandung · ⭐ 4.4</p>
+            <p class="price">Mulai dari <strong>$90</strong>/malam</p>
+            <a href="booking.html?room_id=3">Book Now</a>
+          </article>
+          <article class="hotel-card card">
+            <div class="hotel-badge">Business Trip</div>
+            <h3>City Lights Inn</h3>
+            <p>Jakarta · ⭐ 4.1</p>
+            <p class="price">Mulai dari <strong>$110</strong>/malam</p>
+            <a href="booking.html?room_id=4">Book Now</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
