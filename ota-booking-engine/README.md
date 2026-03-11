@@ -72,3 +72,11 @@ Dengan ini, deploy tidak lagi gagal hanya karena `index.html` tidak ada di root 
 ### Catatan Vercel (Fix Error Deploy)
 
 Konfigurasi `vercel.json` menggunakan **rewrites spesifik** untuk file frontend (`/`, `/search.html`, `/booking.html`, `/css/*`, `/js/*`) agar tidak terjadi rewrite berlebihan yang bisa memicu deploy/runtime error.
+
+### Fix: Vercel mendeteksi Next.js padahal project static
+
+Jika Vercel menampilkan error **"No Next.js version detected"**, project ini sudah diset agar tidak memakai framework Next.js:
+
+- `vercel.json` memakai `"framework": null`
+- output deploy diarahkan ke folder static `ota-booking-engine/frontend`
+- root `package.json` disediakan agar proses install/build Vercel tetap valid

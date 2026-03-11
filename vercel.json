@@ -1,13 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "ota-booking-engine/frontend",
+  "installCommand": "npm install",
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/", "destination": "/ota-booking-engine/frontend/index.html" },
-    { "source": "/index.html", "destination": "/ota-booking-engine/frontend/index.html" },
-    { "source": "/search.html", "destination": "/ota-booking-engine/frontend/search.html" },
-    { "source": "/hotel.html", "destination": "/ota-booking-engine/frontend/hotel.html" },
-    { "source": "/booking.html", "destination": "/ota-booking-engine/frontend/booking.html" },
-    { "source": "/css/:path*", "destination": "/ota-booking-engine/frontend/css/:path*" },
-    { "source": "/js/:path*", "destination": "/ota-booking-engine/frontend/js/:path*" }
+    { "source": "/", "destination": "/index.html" }
   ]
 }
