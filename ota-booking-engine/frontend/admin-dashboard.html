@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - SeatNye Travel</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand">SeatNye Admin</div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="admin-dashboard.html">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container dashboard-page">
+      <section class="section-head"><h2>Admin Dashboard</h2><a href="#">Generate Report</a></section>
+
+      <section class="kpi-grid">
+        <article class="kpi-card"><p>Total Partner</p><h3>146</h3><span>+6 bulan ini</span></article>
+        <article class="kpi-card"><p>Pending Approval</p><h3>11</h3><span>Perlu ditinjau</span></article>
+        <article class="kpi-card"><p>Gross Revenue</p><h3>$92,440</h3><span>Q1 2026</span></article>
+      </section>
+
+      <section>
+        <h3>Hotel Approval Queue</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Hotel</th><th>Kota</th><th>Dokumen</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>Sunrise Bay Hotel</td><td>Lombok</td><td>Lengkap</td><td><span class="pill pill-blue">Approve</span></td></tr>
+              <tr><td>Urban Loft Stay</td><td>Jakarta</td><td>Kurang NPWP</td><td><span class="pill pill-yellow">Review</span></td></tr>
+              <tr><td>Pine Forest Lodge</td><td>Bandung</td><td>Lengkap</td><td><span class="pill pill-blue">Approve</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
