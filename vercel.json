@@ -1,18 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "cleanUrls": true,
   "trailingSlash": false,
-  "routes": [
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "^/$",
-      "dest": "/ota-booking-engine/frontend/index.html"
-    },
-    {
-      "src": "^/(.*)$",
-      "dest": "/ota-booking-engine/frontend/$1"
-    }
+  "rewrites": [
+    { "source": "/", "destination": "/ota-booking-engine/frontend/index.html" },
+    { "source": "/index.html", "destination": "/ota-booking-engine/frontend/index.html" },
+    { "source": "/search.html", "destination": "/ota-booking-engine/frontend/search.html" },
+    { "source": "/hotel.html", "destination": "/ota-booking-engine/frontend/hotel.html" },
+    { "source": "/booking.html", "destination": "/ota-booking-engine/frontend/booking.html" },
+    { "source": "/css/:path*", "destination": "/ota-booking-engine/frontend/css/:path*" },
+    { "source": "/js/:path*", "destination": "/ota-booking-engine/frontend/js/:path*" }
   ]
 }

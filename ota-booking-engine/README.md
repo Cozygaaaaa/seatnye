@@ -68,3 +68,7 @@ Repo ini dikonfigurasi agar request root domain (`/`) diarahkan ke frontend OTA 
 - path seperti `/search.html` dan `/booking.html` juga diarahkan ke `ota-booking-engine/frontend/*`
 
 Dengan ini, deploy tidak lagi gagal hanya karena `index.html` tidak ada di root repository.
+
+### Catatan Vercel (Fix Error Deploy)
+
+Konfigurasi `vercel.json` menggunakan **rewrites spesifik** untuk file frontend (`/`, `/search.html`, `/booking.html`, `/css/*`, `/js/*`) agar tidak terjadi rewrite berlebihan yang bisa memicu deploy/runtime error.
