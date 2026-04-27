@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #f6efe7;
+  background-color: #0b0b0b;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  scroll-behavior: auto;
+}
+
+body {
+  @apply bg-obsidian text-champagne font-sans overflow-x-hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.25;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 0.35px, transparent 0.35px);
+  background-size: 3px 3px;
+  z-index: 30;
+}
+
+.section-shell {
+  @apply max-w-7xl mx-auto px-6 md:px-10 lg:px-16;
+}
+
+.gold-gradient {
+  background: linear-gradient(120deg, #f2e7d8 0%, #c7a66a 52%, #8f6f3d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glass {
+  background: rgba(9, 9, 9, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(242, 231, 216, 0.08);
+}
+
+.luxury-btn {
+  @apply inline-flex items-center justify-center rounded-full border border-gold/65 px-6 py-3 text-sm font-medium tracking-[0.18em] uppercase transition-all duration-500;
+}
+
+.luxury-btn-primary {
+  @apply luxury-btn bg-gold text-obsidian hover:bg-champagne hover:shadow-luxe;
+}
+
+.luxury-btn-ghost {
+  @apply luxury-btn bg-transparent text-champagne hover:bg-champagne/10;
+}
